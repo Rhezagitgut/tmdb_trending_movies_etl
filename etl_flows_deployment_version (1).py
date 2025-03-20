@@ -144,7 +144,7 @@ def transform_trending_movies(response:list[dict]):
 # --- Custome transformation for Movie Details
 def transform_movie_details(response:list[dict]):
     df = pd.DataFrame(response) # convert to DataFrame
-    from_bigquery = read_gbq("movies") # Retrive table detail from BigQuery
+    from_bigquery = read_gbq("detail") # Retrive table detail from BigQuery
     # Cleaning process
     df = df.drop(columns=['genres']) # drop genres
     df['release_date'] = pd.to_datetime(df['release_date']) # fixing datetime object
