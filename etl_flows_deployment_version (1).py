@@ -189,7 +189,7 @@ def tmdb_etl_mainflow(timestamp=datetime.datetime.now(tz=tz)):
     # Read movieId from Trending Movies
     trending = read_gbq("trending")
     list_id = trending['id'].unique().tolist()
-    etl_flow(name="movies", endpoint='/movie/', func_transform=transform_movie_details, bulk=True, bulk_response=list_id, method="replace")
+    etl_flow(name="detail", endpoint='/movie/', func_transform=transform_movie_details, bulk=True, bulk_response=list_id, method="replace")
 
 
 if __name__=="__main__":
