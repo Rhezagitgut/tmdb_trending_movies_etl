@@ -144,7 +144,7 @@ def transform_trending_movies(response:list[dict]):
 # --- Custome transformation for Movie Details
 def transform_movie_details(response:list[dict]):
     df = pd.DataFrame(response) # convert to DataFrame
-    from_bigquery = read_gbq("detail") # Retrive table detail from BigQuery
+    from_bigquery = read_gbq("movies") # Retrive table detail from BigQuery
     # Cleaning process
     df = df.drop(columns=['genres']) # drop genres
     df['release_date'] = pd.to_datetime(df['release_date']) # fixing datetime object
@@ -189,7 +189,7 @@ def tmdb_etl_mainflow(timestamp=datetime.datetime.now(tz=tz)):
     # Read movieId from Trending Movies
     trending = read_gbq("trending")
     list_id = trending['id'].unique().tolist()
-    etl_flow(name="detail", endpoint='/movie/', func_transform=transform_movie_details, bulk=True, bulk_response=list_id, method="replace")
+    etl_flow(name="movies", endpoint='/movie/', func_transform=transform_movie_details, bulk=True, bulk_response=list_id, method="replace")
 
 
 if __name__=="__main__":
